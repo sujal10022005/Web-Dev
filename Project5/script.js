@@ -30,3 +30,21 @@ ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
 ScrollTrigger.refresh();
 
 }
+var cluttet = "";
+document.querySelector("#page>h1").textContent.split(" ").forEach(function(dets){
+  cluttet += '<span> ${dets} </span>'
+
+  document.querySelector("#page2>h1").innerHTML = cluttet;
+})
+
+gsap.to("#page2>h1>span",{
+  ScrollTrigger:{
+    trigger:'#page2>h1>span',
+    start:'top bottom',
+    end:'bottom top',
+    scroller:'#main',
+    scrub:5
+  },
+  stagger: 2,
+  color:'white'
+})

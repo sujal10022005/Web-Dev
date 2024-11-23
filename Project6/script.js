@@ -381,3 +381,158 @@ ScrollTrigger.create({
 });
 }
 canvas();
+function canvas1(){
+  const canvas = document.querySelector("#page18>canvas");
+const context = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+
+window.addEventListener("resize", function () {
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+render();
+});
+
+function files(index) {
+var data = `
+./Vision00001.png
+./Vision00002.png
+./Vision00003.png
+./Vision00004.png
+./Vision00005.png
+./Vision00006.png
+./Vision00007.png
+./Vision00008.png
+./Vision00009.png
+./Vision00010.png
+./Vision00011.png
+./Vision00012.png
+./Vision00013.png
+./Vision00014.png
+./Vision00015.png
+./Vision00016.png
+./Vision00017.png
+./Vision00018.png
+./Vision00019.png
+./Vision00020.png
+./Vision00021.png
+./Vision00022.png
+./Vision00023.png
+./Vision00024.png
+./Vision00025.png
+`;
+return data.split("\n")[index];
+}
+
+const frameCount = 25;
+
+const images = [];
+const imageSeq = {
+frame: 1,
+};
+
+for (let i = 0; i < frameCount; i++) {
+const img = new Image();
+img.src = files(i);
+images.push(img);
+}
+
+gsap.to(imageSeq, {
+frame: frameCount - 1,
+snap: "frame",
+ease: `none`,
+scrollTrigger: {
+  scrub: 0.15,
+  trigger: `#page18`,
+  //   set start end according to preference
+  start: `top top`,
+  end: `80% top`,
+  scroller: `#main`,
+},
+onUpdate: render,
+});
+
+images[1].onload = render;
+
+function render() {
+scaleImage(images[imageSeq.frame], context);
+}
+
+function scaleImage(img, ctx) {
+var canvas = ctx.canvas;
+var hRatio = canvas.width / img.width;
+var vRatio = canvas.height / img.height;
+var ratio = Math.max(hRatio, vRatio);
+var centerShift_x = (canvas.width - img.width * ratio) / 2;
+var centerShift_y = (canvas.height - img.height * ratio) / 2;
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+ctx.drawImage(
+  img,
+  0,
+  0,
+  img.width,
+  img.height,
+  centerShift_x,
+  centerShift_y,
+  img.width * ratio,
+  img.height * ratio
+);
+}
+ScrollTrigger.create({
+
+trigger: "#page18",
+pin: true,
+// markers:true,
+scroller: `#main`,
+//   set start end according to preference
+start: `top top`,
+end: `80% top`,
+});
+}
+canvas1();
+
+var tl3 = gsap.timeline({
+  scrollTrigger:{
+      trigger:`#page21`,
+      start:`top top`,
+      scrub:1,
+      scroller:`#main`,
+      pin:true
+  }
+})
+
+
+tl3.to("#page21>#troff",{
+  opacity:0
+})
+
+var tl4 = gsap.timeline({
+  scrollTrigger:{
+      trigger:`#page22`,
+      start:`top top`,
+      scrub:1,
+      scroller:`#main`,
+      pin:true
+  }
+})
+
+
+tl4.to("#page22>#snroff",{
+  opacity:0
+})
+
+
+
+gsap.to("#page23>img",{
+  scrollTrigger:{
+    trigger:`#page23>img`,
+    start:`top bottom`,
+    end:`bottom 60%`,
+    scrub:.5,
+    scroller:`#main`
+  },
+  opacity:1
+})
+

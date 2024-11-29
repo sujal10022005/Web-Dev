@@ -519,7 +519,7 @@ var tl4 = gsap.timeline({
 })
 
 
-tl4.to("#page22>#snroff",{
+tl4.to("#page22>#snoff",{
   opacity:0
 })
 
